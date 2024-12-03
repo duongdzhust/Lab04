@@ -1,0 +1,25 @@
+Qs1: What class should implement the Comparable interface? 
+   L?p nên tri?n khai giao di?n Comparable là l?p Media, vì dây là l?p cha c?a t?t c? các lo?i media (Book, DigitalVideoDisc, CompactDisc). Khi Media tri?n khai Comparable, t?t c? các l?p con c?a nó s? k? th?a logic so sánh.
+Qs2: In those classes, how should you implement the compareTo()method be to reflect the ordering that we want? 
+   Ð? s?p x?p theo title (tiêu d?) tru?c và sau dó là cost (giá), phuong th?c compareTo() trong l?p Media có th? du?c tri?n khai nhu sau:
+    @Override
+public int compareTo(Media other) {
+    int titleComparison = this.getTitle().compareTo(other.getTitle());
+    if (titleComparison != 0) {
+        return titleComparison; // So sánh theo tiêu d? tru?c
+    }
+    return Float.compare(other.getCost(), this.getCost()); // Sau dó so sánh theo giá (gi?m d?n)
+}
+    Tri?n khai này d?m b?o:
+
+Th? t? uu tiên chính là title theo th? t? b?ng ch? cái.
+Th? t? uu tiên ph? (n?u tiêu d? gi?ng nhau) là cost theo th? t? gi?m d?n.
+Qs3: Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+    Không, chúng ta không th? có nhi?u quy t?c s?p x?p d?ng th?i khi s? d?ng giao di?n Comparable, vì l?p tri?n khai Comparable ch? có th? d?nh nghia m?t th? t? t? nhiên duy nh?t thông qua phuong th?c compareTo().
+
+Ð? có nhi?u quy t?c s?p x?p:
+
+S? d?ng giao di?n Comparator (nhu dã trình bày ? ph?n tru?c).
+Comparator cho phép d?nh nghia và s? d?ng nhi?u chi?n lu?c s?p x?p m?t cách d?c l?p
+Qs4: Suppose the DVDs has a different ordering rule from the other media types, that is by title, then decreasing length, then cost. How would you modify your code to allow this? 
+    Override compareTo() trong l?p DigitalVideoDisc d? h? tr? logic s?p x?p c? th?.
